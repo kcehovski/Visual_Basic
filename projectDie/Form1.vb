@@ -10,7 +10,6 @@
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         i = 0
         btnDIE2.Enabled = False
     End Sub
