@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D6C3C5F3-AEA1-4E19-8940-84424476E18F}</ProjectGuid>
+    <ProjectGuid>{2973BB3D-5E96-4018-AB8D-4BAD4B020594}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>projectTrainee.My.MyApplication</StartupObject>
-    <RootNamespace>projectTrainee</RootNamespace>
-    <AssemblyName>projectTrainee</AssemblyName>
+    <StartupObject>projectEmployee.My.MyApplication</StartupObject>
+    <RootNamespace>projectEmployee</RootNamespace>
+    <AssemblyName>projectEmployee</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -35,7 +35,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>projectTrainee.xml</DocumentationFile>
+    <DocumentationFile>projectEmployee.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -45,7 +45,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>projectTrainee.xml</DocumentationFile>
+    <DocumentationFile>projectEmployee.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -85,11 +85,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database2DataSet.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Database2DataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -125,17 +120,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Database2DataSet.xsc">
-      <DependentUpon>Database2DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Database2DataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Database2DataSet.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Database2DataSet.xss">
-      <DependentUpon>Database2DataSet.xsd</DependentUpon>
-    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -148,12 +132,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database2.mdf">
+    <Content Include="EmployeesDBO.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Database2_log.ldf">
+    <Content Include="EmployeesDBO_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>Database2.mdf</DependentUpon>
+      <DependentUpon>EmployeesDBO.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
