@@ -5,6 +5,7 @@ Public Class frmMain
     Dim connectionString As String
     Dim cnn As New SqlConnection
     Dim dt As New DataTable
+    Dim ds As New DataSet("Employees")
     Dim iRecCount As Integer
     Dim iIndex As Integer = 0
 
@@ -13,6 +14,8 @@ Public Class frmMain
         DisableInput()
         ConnectionToDatabase()
         DisplayRecord(iIndex)
+        dtDOB.Value = DateTime.Now
+        dtDateStarted.Value = DateTime.Now
 
     End Sub
 
@@ -24,7 +27,9 @@ Public Class frmMain
             cnn.Open()
             Dim str As String = "SELECT * FROM Employees"
             Dim da As New SqlDataAdapter(str, cnn)
-            da.Fill(dt)
+            da.MissingSchemaAction = MissingSchemaAction.AddWithKey
+            da.Fill(ds, "Employees")
+            dt = ds.Tables("Employees")
             iRecCount = dt.Rows.Count
 
         Catch ex As Exception
@@ -195,6 +200,42 @@ Public Class frmMain
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         EnableInput()
+
+        btnFirst.Enabled = False
+        btnPrevious.Enabled = False
+        btnNext.Enabled = False
+        btnLast.Enabled = False
+
+        lstCounties.SelectedIndex = 0
+        cboDepartment.SelectedIndex = 0
+        rdoMale.Checked = True
+
+        Try
+
+            Dim row As DataRow = ds.Tables("Employees").NewRow()
+
+            row("FirstName") = "First Name"
+            row("LastName") = "Last Name"
+            row("Address1") = "Address1"
+            row("Address2") = "Address2"
+            row("County") = lstCounties.SelectedItem
+            row("DateOfBirth") = dtDOB.Value
+            row("Gender") = "M"
+            row("DateStarted") = dtDateStarted.Value
+            row("Department") = cboDepartment.SelectedItem
+            row("Notes") = "Notes"
+
+            ds.Tables("Employees").Rows.Add(row)
+            iRecCount = dt.Rows.Count
+
+            iIndex = iRecCount - 1
+
+            DisplayRecord(iIndex)
+
+        Catch ex As Exception
+            MessageBox.Show("Bla")
+        End Try
+
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
@@ -203,10 +244,27 @@ Public Class frmMain
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
 
+
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         DisableInput()
-        CheckInput()
+        'CheckInput()
+    End Sub
+
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+        ds.RejectChanges()
+        iRecCount = dt.Rows.Count
+
+        iIndex = iRecCount - 1
+
+        DisplayRecord(iIndex)
+
+        DisableInput()
+        btnFirst.Enabled = True
+        btnPrevious.Enabled = True
+        btnNext.Enabled = True
+        btnLast.Enabled = True
+
     End Sub
 End Class
