@@ -6,16 +6,20 @@ Public Class frmMain
     Dim cnn As New SqlConnection
     Dim dt As New DataTable
     Dim ds As New DataSet("Employees")
+    Dim da As New SqlDataAdapter
+    Dim row As DataRow
     Dim iRecCount As Integer
     Dim iIndex As Integer = 0
+    Dim strOp As String = ""
+    Dim iInd As Integer
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         DisableInput()
         ConnectionToDatabase()
         DisplayRecord(iIndex)
-        dtDOB.Value = DateTime.Now
-        dtDateStarted.Value = DateTime.Now
+        'dtDOB.Value = DateTime.Now
+        'dtDateStarted.Value = DateTime.Now
 
     End Sub
 
@@ -26,7 +30,7 @@ Public Class frmMain
         Try
             cnn.Open()
             Dim str As String = "SELECT * FROM Employees"
-            Dim da As New SqlDataAdapter(str, cnn)
+            da = New SqlDataAdapter(str, cnn)
             da.MissingSchemaAction = MissingSchemaAction.AddWithKey
             da.Fill(ds, "Employees")
             dt = ds.Tables("Employees")
@@ -122,21 +126,25 @@ Public Class frmMain
             txtFirstName.Text = dt.Rows(Index)("FirstName").ToString()
             txtLastName.Text = dt.Rows(Index)("LastName").ToString()
             txtAddressLine1.Text = dt.Rows(Index)("Address1").ToString()
-            If Len(dt.Rows(Index)("Address2").ToString()) > 0 Then
-                txtAddressLine2.Text = dt.Rows(Index)("Address2").ToString()
-            End If
+            txtAddressLine2.Text = dt.Rows(Index)("Address2").ToString()
             txtCounty.Text = dt.Rows(Index)("County").ToString()
+            lstCounties.SelectedItem = dt.Rows(Index)("County")
+
             txtDOB.Text = dt.Rows(Index)("DateOfBirth").ToString()
+            dtDOB.Value = dt.Rows(Index)("DateOfBirth")
+
             If (dt.Rows(Index)("Gender").ToString()) = "M" Then
                 txtGender.Text = "Male"
+                rdoMale.Checked = True
             Else
                 txtGender.Text = "Female"
+                rdoFemale.Checked = True
             End If
+
             txtDateStarted.Text = dt.Rows(Index)("DateStarted").ToString()
+            dtDateStarted.Value = dt.Rows(Index)("DateStarted")
             txtDepartment.Text = dt.Rows(Index)("Department").ToString()
-            If Len(dt.Rows(Index)("Notes").ToString()) > 0 Then
-                txtNotes.Text = dt.Rows(Index)("Notes").ToString()
-            End If
+            txtNotes.Text = dt.Rows(Index)("Notes").ToString()
 
         Catch ex As Exception
             MessageBox.Show("Unable to set up display!")
@@ -199,12 +207,15 @@ Public Class frmMain
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        strOp = "Add"
         EnableInput()
 
         btnFirst.Enabled = False
         btnPrevious.Enabled = False
         btnNext.Enabled = False
         btnLast.Enabled = False
+        btnEdit.Enabled = False
+        btnDelete.Enabled = False
 
         lstCounties.SelectedIndex = 0
         cboDepartment.SelectedIndex = 0
@@ -212,7 +223,7 @@ Public Class frmMain
 
         Try
 
-            Dim row As DataRow = ds.Tables("Employees").NewRow()
+            row = ds.Tables("Employees").NewRow()
 
             row("FirstName") = "First Name"
             row("LastName") = "Last Name"
@@ -240,6 +251,18 @@ Public Class frmMain
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
         EnableInput()
+
+        btnFirst.Enabled = False
+        btnPrevious.Enabled = False
+        btnNext.Enabled = False
+        btnLast.Enabled = False
+        btnAdd.Enabled = False
+        btnDelete.Enabled = False
+
+        iInd = txtID.Text
+        dt.Rows(iInd - 1)("FirstName") = txtFirstName.Text
+        dt.Rows(iInd - 1)("LastName") = txtLastName.Text
+
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
@@ -249,14 +272,25 @@ Public Class frmMain
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         DisableInput()
-        'CheckInput()
+
+        Dim cB As SqlCommandBuilder = New SqlCommandBuilder(da)
+        da.UpdateCommand = cB.GetUpdateCommand()
+        da.Update(dt)
+        MessageBox.Show("Saved successfully")
+
     End Sub
+
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         ds.RejectChanges()
         iRecCount = dt.Rows.Count
 
-        iIndex = iRecCount - 1
+        If strOp = "Add" Then
+            iIndex = iRecCount - 1
+            strOp = ""
+
+        End If
+
 
         DisplayRecord(iIndex)
 
