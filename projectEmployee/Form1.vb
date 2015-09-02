@@ -18,13 +18,11 @@ Public Class frmMain
         DisableInput()
         ConnectionToDatabase()
         DisplayRecord(iIndex)
-        'dtDOB.Value = DateTime.Now
-        'dtDateStarted.Value = DateTime.Now
 
     End Sub
 
     Private Sub ConnectionToDatabase()
-        connectionString = "Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\blue4\Documents\vsprojects\Visual_Basic\projectEmployee\bin\debug\EmployeesDBO.mdf;Integrated Security=True"
+        connectionString = "Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\blue4\Documents\vsprojects\Visual_Basic\projectEmployee\EmployeesDBO.mdf;Integrated Security=True"
         cnn = New SqlConnection(connectionString)
 
         Try
@@ -144,6 +142,7 @@ Public Class frmMain
             txtDateStarted.Text = dt.Rows(Index)("DateStarted").ToString()
             dtDateStarted.Value = dt.Rows(Index)("DateStarted")
             txtDepartment.Text = dt.Rows(Index)("Department").ToString()
+            cboDepartment.SelectedItem = dt.Rows(Index)("Department")
             txtNotes.Text = dt.Rows(Index)("Notes").ToString()
 
         Catch ex As Exception
@@ -259,14 +258,14 @@ Public Class frmMain
         btnAdd.Enabled = False
         btnDelete.Enabled = False
 
-        iInd = txtID.Text
-        dt.Rows(iInd - 1)("FirstName") = txtFirstName.Text
-        dt.Rows(iInd - 1)("LastName") = txtLastName.Text
-
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        ds.Tables("Employees").Rows(iInd - 1).Delete()
 
+        'iRecCount = dt.Rows.Count
+        'iIndex = iRecCount - 1
+        'DisplayRecord(iIndex)
 
     End Sub
 
@@ -275,6 +274,25 @@ Public Class frmMain
 
         Dim cB As SqlCommandBuilder = New SqlCommandBuilder(da)
         da.UpdateCommand = cB.GetUpdateCommand()
+
+        iInd = txtID.Text
+        dt.Rows(iInd - 1)("FirstName") = txtFirstName.Text
+        dt.Rows(iInd - 1)("LastName") = txtLastName.Text
+        dt.Rows(iInd - 1)("Address1") = txtAddressLine1.Text
+        dt.Rows(iInd - 1)("Address2") = txtAddressLine2.Text
+
+        If rdoMale.Checked Then
+            dt.Rows(iInd - 1)("Gender") = "M"
+        Else
+            dt.Rows(iInd - 1)("Gender") = "F"
+        End If
+
+        dt.Rows(iInd - 1)("County") = lstCounties.SelectedItem
+        dt.Rows(iInd - 1)("DateOfBirth") = dtDOB.Value
+        dt.Rows(iInd - 1)("DateStarted") = dtDateStarted.Value
+        dt.Rows(iInd - 1)("Department") = cboDepartment.SelectedItem
+        dt.Rows(iInd - 1)("Notes") = txtNotes.Text
+
         da.Update(dt)
         MessageBox.Show("Saved successfully")
 
