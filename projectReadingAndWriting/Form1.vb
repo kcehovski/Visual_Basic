@@ -21,7 +21,7 @@ Public Class Form1
         End If
         sw = New StreamWriter(sWriteFIle, True)
 
-        connectionString = "Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Kaja\Documents\Visual_Basic\projectReadingAndWriting\Database.mdf;Integrated Security=True"
+        connectionString = "C:\Users\blue4\Documents\vsprojects\Visual_Basic\projectReadingAndWriting\Database.mdf"
         cnn = New SqlConnection(connectionString)
 
         Try
