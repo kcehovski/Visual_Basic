@@ -76,9 +76,9 @@ Partial Class Form1
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDataGridViewTextBoxColumn, Me.PayeeNameDataGridViewTextBoxColumn, Me.SepaDateDataGridViewTextBoxColumn, Me.AmountDataGridViewTextBoxColumn, Me.BICDataGridViewTextBoxColumn, Me.IBANDataGridViewTextBoxColumn, Me.PayeeOrAccountDataGridViewTextBoxColumn, Me.FromAccountDataGridViewTextBoxColumn, Me.ToAccountDataGridViewTextBoxColumn, Me.ReferenceDataGridViewTextBoxColumn})
         Me.DataGridView1.DataSource = Me.TblSepaBindingSource
-        Me.DataGridView1.Location = New System.Drawing.Point(668, 64)
+        Me.DataGridView1.Location = New System.Drawing.Point(655, 56)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(444, 197)
+        Me.DataGridView1.Size = New System.Drawing.Size(475, 225)
         Me.DataGridView1.TabIndex = 24
         '
         'IdDataGridViewTextBoxColumn
@@ -154,7 +154,7 @@ Partial Class Form1
         '
         'txtReference
         '
-        Me.txtReference.Location = New System.Drawing.Point(174, 391)
+        Me.txtReference.Location = New System.Drawing.Point(237, 379)
         Me.txtReference.Multiline = True
         Me.txtReference.Name = "txtReference"
         Me.txtReference.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -163,14 +163,14 @@ Partial Class Form1
         '
         'dtSepaDate
         '
-        Me.dtSepaDate.Location = New System.Drawing.Point(174, 362)
+        Me.dtSepaDate.Location = New System.Drawing.Point(237, 350)
         Me.dtSepaDate.Name = "dtSepaDate"
         Me.dtSepaDate.Size = New System.Drawing.Size(200, 20)
         Me.dtSepaDate.TabIndex = 22
         '
         'txtAmount
         '
-        Me.txtAmount.Location = New System.Drawing.Point(174, 324)
+        Me.txtAmount.Location = New System.Drawing.Point(237, 312)
         Me.txtAmount.Name = "txtAmount"
         Me.txtAmount.Size = New System.Drawing.Size(200, 20)
         Me.txtAmount.TabIndex = 21
@@ -178,7 +178,7 @@ Partial Class Form1
         'lblReference
         '
         Me.lblReference.AutoSize = True
-        Me.lblReference.Location = New System.Drawing.Point(89, 394)
+        Me.lblReference.Location = New System.Drawing.Point(152, 382)
         Me.lblReference.Name = "lblReference"
         Me.lblReference.Size = New System.Drawing.Size(60, 13)
         Me.lblReference.TabIndex = 20
@@ -187,7 +187,7 @@ Partial Class Form1
         'lblDate
         '
         Me.lblDate.AutoSize = True
-        Me.lblDate.Location = New System.Drawing.Point(89, 362)
+        Me.lblDate.Location = New System.Drawing.Point(152, 350)
         Me.lblDate.Name = "lblDate"
         Me.lblDate.Size = New System.Drawing.Size(33, 13)
         Me.lblDate.TabIndex = 19
@@ -196,7 +196,7 @@ Partial Class Form1
         'lblAmount
         '
         Me.lblAmount.AutoSize = True
-        Me.lblAmount.Location = New System.Drawing.Point(89, 331)
+        Me.lblAmount.Location = New System.Drawing.Point(152, 319)
         Me.lblAmount.Name = "lblAmount"
         Me.lblAmount.Size = New System.Drawing.Size(46, 13)
         Me.lblAmount.TabIndex = 18
@@ -222,6 +222,7 @@ Partial Class Form1
         'txtIBAN
         '
         Me.txtIBAN.Location = New System.Drawing.Point(61, 161)
+        Me.txtIBAN.MaxLength = 34
         Me.txtIBAN.Name = "txtIBAN"
         Me.txtIBAN.Size = New System.Drawing.Size(190, 20)
         Me.txtIBAN.TabIndex = 7
@@ -229,6 +230,7 @@ Partial Class Form1
         'txtBIC
         '
         Me.txtBIC.Location = New System.Drawing.Point(61, 124)
+        Me.txtBIC.MaxLength = 11
         Me.txtBIC.Name = "txtBIC"
         Me.txtBIC.Size = New System.Drawing.Size(190, 20)
         Me.txtBIC.TabIndex = 6
@@ -269,6 +271,7 @@ Partial Class Form1
         '
         'cboFromP
         '
+        Me.cboFromP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFromP.FormattingEnabled = True
         Me.cboFromP.Items.AddRange(New Object() {"Current", "Deposit"})
         Me.cboFromP.Location = New System.Drawing.Point(61, 42)
@@ -300,6 +303,7 @@ Partial Class Form1
         '
         'cboToA
         '
+        Me.cboToA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboToA.FormattingEnabled = True
         Me.cboToA.Location = New System.Drawing.Point(63, 87)
         Me.cboToA.Name = "cboToA"
@@ -308,6 +312,7 @@ Partial Class Form1
         '
         'cboFromA
         '
+        Me.cboFromA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFromA.FormattingEnabled = True
         Me.cboFromA.Items.AddRange(New Object() {"Current", "Deposit", "Loan"})
         Me.cboFromA.Location = New System.Drawing.Point(63, 42)
@@ -367,7 +372,7 @@ Partial Class Form1
         '
         'btnExit
         '
-        Me.btnExit.Location = New System.Drawing.Point(581, 441)
+        Me.btnExit.Location = New System.Drawing.Point(567, 530)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(75, 23)
         Me.btnExit.TabIndex = 27
@@ -376,7 +381,7 @@ Partial Class Form1
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(500, 441)
+        Me.btnCancel.Location = New System.Drawing.Point(486, 530)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 26
@@ -385,7 +390,7 @@ Partial Class Form1
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(419, 441)
+        Me.btnSave.Location = New System.Drawing.Point(405, 530)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 25
@@ -396,7 +401,8 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1160, 538)
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.ClientSize = New System.Drawing.Size(1160, 594)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
